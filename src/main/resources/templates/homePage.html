@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+      
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <link rel="stylesheet" type="text/css" href="../static/css/styles.css"   th:href="@{/css/styles.css}"/>
+<title>Insert title here</title>
+</head>
+<body onload="validateBtn()">
+<script type="text/javascript">
+function validateBtn(){
+	var currentPageNumber = document.getElementById('currentPage');
+	var totalPageNumber = document.getElementById('totalOfPages');
+	
+	var btnBack = document.getElementById('btnBack');
+	var btnNext = document.getElementById('btnNext');
+	
+	if(currentPageNumber.textContent == '1'){
+		btnBack.disabled = true;
+	}else{
+		btnBack.disabled = false;
+	}
+	
+	if(currentPageNumber.textContent == totalPageNumber.textContent ){
+		btnNext.disabled = true;
+	}else{
+		btnNext.disabled = false;
+	}
+}
+</script>
+
+<h1 class="banner"  >Welcome to the GM File Downloader</h1>
+
+<p><a href="/fileUp" >Upload the File Here</a></p>
+
+<table >
+
+    <tr >
+      <th>id</th>
+      <th>First Name</th>
+      <th>Last Name</th>
+       <th>Age</th>
+       <th>Street</th>
+       <th>Download File</th>
+    </tr>
+    
+    <tr th:each="person : ${peaple}">
+        <td  th:text ="${person.id}" ></td>
+         <td  th:text ="${person.firstName}"  ></td>
+          <td  th:text ="${person.lastName}"  ></td>
+           <td  th:text ="${person.age}"  ></td>
+            <td  th:text ="${person.street}"  ></td>
+             <td> 
+            <form action="#" th:action="@{/files/getFile}  "  method="post"  target="_blank" >
+               <button type="submit" name="id"  th:value="${person.id}" >Baixar</button>
+            </form>
+            </td>
+
+     </tr>
+ 
+</table>
+
+<form action="#" th:action="@{/movePages}  "  method="post"   >
+ <button type="submit" name="idN"  value="back"    id="btnBack" >Anterior</button>
+ <button type="submit" name="idN"  value="next"    id="btnNext"  >Proximo</button>
+ </form>
+ 
+ <div id="sumaryPages"  >
+ <p>Page</p>
+ <p th:text="${currentPageNumber}+1"  id="currentPage" ></p>
+ <p>of</p>
+ <p th:text="${numberOfPages}+1"   id="totalOfPages" ></p>
+  <p> Pages</p>
+  </div>
+ 
+
+</body>
+</html>

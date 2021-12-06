@@ -1,0 +1,40 @@
+
+
+.banner{
+	color: blue;
+	margin-bottom : 2%;
+}
+
+.uploadWel{
+	color: green;
+	margin-bottom : 1%;
+}
+
+
+
+body{
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+	
+	
+
+}
+
+#sumaryPages{
+	display: inline-flex;
+	color: lightseagreen;
+	font-size: 25px;
+	column-gap: 5px;
+}
+
+table{
+	margin-left: auto;
+	margin-right: auto;
+	width: 100%;
+}
+
+table, th, td {
+  border:1px solid black;
+}
+   
