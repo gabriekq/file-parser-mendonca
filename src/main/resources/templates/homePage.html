@@ -7,34 +7,14 @@
   <link rel="stylesheet" type="text/css" href="../static/css/styles.css"   th:href="@{/css/styles.css}"/>
 <title>Insert title here</title>
 </head>
-<body onload="validateBtn()">
-<script type="text/javascript">
-function validateBtn(){
-	var currentPageNumber = document.getElementById('currentPage');
-	var totalPageNumber = document.getElementById('totalOfPages');
-	
-	var btnBack = document.getElementById('btnBack');
-	var btnNext = document.getElementById('btnNext');
-	
-	if(currentPageNumber.textContent == '1'){
-		btnBack.disabled = true;
-	}else{
-		btnBack.disabled = false;
-	}
-	
-	if(currentPageNumber.textContent == totalPageNumber.textContent ){
-		btnNext.disabled = true;
-	}else{
-		btnNext.disabled = false;
-	}
-}
-</script>
+<body onload="movePages('default')">
+<script type="text/javascript"   src="../static/javascript/scriptFunction.js" th:src="@{/javascript/scriptFunction.js}" ></script>
 
 <h1 class="banner"  >Welcome to the GM File Downloader</h1>
 
 <p><a href="/fileUp" >Upload the File Here</a></p>
 
-<table >
+<table id="tableData" >
 
     <tr >
       <th>id</th>
@@ -45,32 +25,20 @@ function validateBtn(){
        <th>Download File</th>
     </tr>
     
-    <tr th:each="person : ${peaple}">
-        <td  th:text ="${person.id}" ></td>
-         <td  th:text ="${person.firstName}"  ></td>
-          <td  th:text ="${person.lastName}"  ></td>
-           <td  th:text ="${person.age}"  ></td>
-            <td  th:text ="${person.street}"  ></td>
-             <td> 
-            <form action="#" th:action="@{/files/getFile}  "  method="post"  target="_blank" >
-               <button type="submit" name="id"  th:value="${person.id}" >Baixar</button>
-            </form>
-            </td>
-
-     </tr>
+  
  
 </table>
 
-<form action="#" th:action="@{/movePages}  "  method="post"   >
- <button type="submit" name="idN"  value="back"    id="btnBack" >Anterior</button>
- <button type="submit" name="idN"  value="next"    id="btnNext"  >Proximo</button>
- </form>
+
+ <button type="button" name="idN"  value="back"  onclick="movePages(value)"  id="btnBack" >Anterior</button>
+ <button type="button" name="idN"  value="next"  onclick="movePages(value)"  id="btnNext"  >Proximo</button>
+  </br>
  
  <div id="sumaryPages"  >
  <p>Page</p>
- <p th:text="${currentPageNumber}+1"  id="currentPage" ></p>
+ <p  id="currentPage" ></p>
  <p>of</p>
- <p th:text="${numberOfPages}+1"   id="totalOfPages" ></p>
+ <p   id="totalOfPages" ></p>
   <p> Pages</p>
   </div>
  

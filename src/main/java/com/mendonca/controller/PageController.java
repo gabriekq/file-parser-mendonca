@@ -34,14 +34,14 @@ public class PageController {
 	public String homePage(Model model) {
 		
 
-		 List<Person>	peaples = fileService.getPersonsbyPage(pageNumber);
-		 model.addAttribute("peaple", peaples);
+		// List<Person>	peaples = fileService.getPersonsbyPage(pageNumber);
+	//	 model.addAttribute("peaple", peaples);
 		
 		// numberOfPages = (fileService.getCountPerson() % 10) != 0  ? 1 : 0;
-		 numberOfPages = (fileService.getCountPerson() / 10) ;
+		// numberOfPages = (fileService.getCountPerson() / 10) ;
 		 
-		 model.addAttribute("currentPageNumber", pageNumber);
-		 model.addAttribute("numberOfPages", numberOfPages);
+		// model.addAttribute("currentPageNumber", pageNumber);
+		// model.addAttribute("numberOfPages", numberOfPages);
 		 
 		//peaples.forEach(p -> System.out.println(p.getId()));	
 		return "homePage";	
@@ -53,7 +53,7 @@ public class PageController {
 	}
 
 	
-	
+	/*
 	@RequestMapping("movePages") 
 	public String movePages(Model model,@RequestParam(required=false,name="idN") String idN) {
 		
@@ -76,7 +76,7 @@ public class PageController {
 		model.addAttribute("numberOfPages", numberOfPages);
 		return "homePage";	
 	}
-	
+	*/
 	
 	
 	
