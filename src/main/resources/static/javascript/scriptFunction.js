@@ -74,7 +74,7 @@ function addPersontoTable(item,index){
 	  colunm3.innerHTML = item.lastName;
 	  colunm4.innerHTML = item.age;
 	  colunm5.innerHTML = item.street;
-	  var botao ='<button type="button" value="?" onclick="requestDonwloadFile(value)">Donwload</button>'.replace('?',item.id);
+	  var botao ='<button class="btn btn-secondary" type="button" value="?" onclick="requestDonwloadFile(value)">Donwload</button>'.replace('?',item.id);
 	  colunm6.innerHTML = botao;  
 }
 

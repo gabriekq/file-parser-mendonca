@@ -21,6 +21,10 @@ body{
 
 }
 
+#uploadButton{
+font-weight: bold;
+}
+
 #controles{
 	display: flex;
 	margin-left: auto;
@@ -46,13 +50,16 @@ body{
 	column-gap: 5px;
 }
 
+#btnBack{
+   margin-right: 10px;
+}
 table{
 	margin-left: auto;
 	margin-right: auto;
 	width: 100%;
 }
 
-table, th, td {
+ th, td {
   border:1px solid black;
 }
    
