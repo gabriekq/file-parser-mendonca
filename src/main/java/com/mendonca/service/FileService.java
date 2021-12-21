@@ -17,5 +17,7 @@ public interface FileService {
     public Optional<PersonFile>  getFileDownload(String id);
     
     public List<Person> getPersonsbyPage(int pageNumber) ;
+    
+    public List<Person> searchPersonByRangeId(String id);
 	
 }

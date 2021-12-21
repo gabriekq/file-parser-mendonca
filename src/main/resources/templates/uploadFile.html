@@ -7,11 +7,27 @@
 <title>File Upload</title>
 </head>
 
+<script>
+    if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+    }
+</script>
+
+
 <body>
 
 
 <h1  class="uploadWel">Welcome to File Upload</h1>
 
+<div id="controle1">
+<p><a href="/home" >Home Page</a></p>
+</div>
+
+<form target="about:blank" th:action="@{files/upload}  "  method="post" enctype="multipart/form-data"    >
+  <input type="file" value="file" name="file">
+  <input type="submit" value="Submit"  >
+
+ </form>
 
 
 

@@ -9,6 +9,7 @@ import java.util.Optional;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -88,7 +89,42 @@ public class FileServiceInpl implements FileService {
 
 	@Override
 	public Long getCountPerson() {
-		return pageablePersonRepo.count();
+		return pageablePersonRepo.count();	
+	}
+
+
+	@Override
+	public List<Person> searchPersonByRangeId(String id) {
+	
+	List<Person> persons;	
+	String []inputs;
+	int idMaior,idMenor;
+	
+	try {
+	
+	if(id.contains("-") &&  (id.indexOf("-") != (id.length()-1)  ) ) {
+		
+		inputs = id.split("([-])+");
+		if( Integer.parseInt(inputs[0])  > Integer.parseInt(inputs[1])  ) {
+			idMaior = Integer.parseInt(inputs[0]);
+			idMenor = Integer.parseInt(inputs[1]);
+		}else {
+			idMenor = Integer.parseInt(inputs[0]);
+			idMaior = Integer.parseInt(inputs[1]);		
+		}
+	}else {
+		
+		idMaior = Integer.parseInt(id.split("([-])+")[0]);
+		idMenor = Integer.parseInt(id.split("([-])+")[0]);
+		
+	}
+	
+	    persons = personRepository.findByIdRange(idMenor, idMaior);
+	    return persons;
+	}catch (Exception e) {
+		return null;
+	}
+	    
 		
 	}
 

@@ -118,4 +118,34 @@ function movePages(pageMode){
 }
 
 
+function search(){
+	
+
+	var searchValue = document.getElementById('searchId');
+	searchValue = searchValue.value;
+	
+	if(searchValue.length == 0){
+		movePages('default');
+	}else{
+	
+	var searchAdr = 'http://'+document.URL.split('/')[2]+'/data/search?id='+searchValue;
+	clearTable();
+	
+	 var xhttp = new XMLHttpRequest();
+	 xhttp.onreadystatechange = function() {
+			    if (this.readyState == 4 && this.status == 200) {
+			    	personArray = JSON.parse( this.responseText);
+			    	 personArray.forEach(addPersontoTable);
+			    }
+			  };
+		         // prencher os dados da api na tabela nesta pagina
+			  xhttp.open("GET", searchAdr, false);
+			  xhttp.send();
+	
+	}
+	
+}
+
+
+
 

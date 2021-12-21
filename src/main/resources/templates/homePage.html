@@ -5,14 +5,25 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <link rel="stylesheet" type="text/css" href="../static/css/styles.css"   th:href="@{/css/styles.css}"/>
-<title>Insert title here</title>
+<title>Welcome to the GM File Downloader</title>
 </head>
 <body onload="movePages('default')">
 <script type="text/javascript"   src="../static/javascript/scriptFunction.js" th:src="@{/javascript/scriptFunction.js}" ></script>
 
 <h1 class="banner"  >Welcome to the GM File Downloader</h1>
 
+
+<div id="controles">
+
+<div id="controle1">
 <p><a href="/fileUp" >Upload the File Here</a></p>
+</div>
+
+<div id=controle2 >
+<input type="text" placeholder="Search.." name="search" id="searchId"  onkeyup="search()" >
+</div>
+
+</div>
 
 <table id="tableData" >
 
