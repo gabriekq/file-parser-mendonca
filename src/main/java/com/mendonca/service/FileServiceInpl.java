@@ -1,15 +1,23 @@
 package com.mendonca.service;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Optional;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
+import java.util.zip.ZipOutputStream;
 
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -71,6 +79,34 @@ public class FileServiceInpl implements FileService {
 		
 		return personFile;
 	}
+	
+	public byte[] getFilesDownload() throws IOException{
+		
+	 List<PersonFile> peapleFile =   	filePersonRepository.findAll();
+	
+	 ByteArrayOutputStream baos = new ByteArrayOutputStream();
+	 
+	// FileOutputStream fos = new FileOutputStream("multiCompressed.zip");  // final file name
+	 ZipOutputStream zipOut = new ZipOutputStream(baos);  // fin
+	 
+	 
+	 for(PersonFile personFile : peapleFile    ) {
+
+		 ZipEntry zipEntry = new ZipEntry(personFile.hashCode()+personFile.getFileName());
+         zipOut.putNextEntry(zipEntry);
+		  zipOut.write(personFile.getData(), 0, personFile.getData().length);
+		 
+		
+		 
+	 }
+	 zipOut.close();
+	 
+	 
+		return baos.toByteArray();
+	}
+	
+	
+	
 
 	@Override
 	public List<Person> getPersonsbyPage(int pageNumber) {

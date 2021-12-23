@@ -1,24 +1,25 @@
 package com.mendonca.controller;
 
-import java.util.List;
+
 import java.util.Optional;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
+
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+
+
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.mendonca.modell.Person;
 import com.mendonca.modell.PersonFile;
 import com.mendonca.service.FileService;
 
@@ -54,7 +55,26 @@ public class ParserController {
 		}
 	}
 	
-	
+	@RequestMapping("/getFiles"  )
+	public ResponseEntity<Resource> getFiles(){
+		
+		String fileType = "application/zip";
+		try {
+		
+		byte[]  data =	fileService.getFilesDownload();
+		
+		return ResponseEntity.ok()
+				.contentType(MediaType.parseMediaType(fileType))
+				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=mendonca.zip")
+				.body(new ByteArrayResource(data));
+		
+		}catch (Exception e) {
+			return null;
+		}
+		
+		
+	}
+
 	
 	
 	
