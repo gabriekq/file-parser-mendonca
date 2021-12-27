@@ -9,6 +9,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
@@ -43,6 +48,12 @@ public class FileServiceInpl implements FileService {
 	
 	@Autowired
 	private PageablePersonRepo pageablePersonRepo;
+	
+	private	ExecutorService executorService =  Executors.newFixedThreadPool(10);
+	
+	@Autowired
+    private EmailService email;
+	
 
 	@Override
 	public void parseUploadedFile(MultipartFile multipartFile) { // save the object into the DB
@@ -53,14 +64,30 @@ public class FileServiceInpl implements FileService {
 
 			byte[] data = multipartFile.getBytes();
 			Person person = mapper.readValue(data, Person.class);
-
+			
 			person = personRepository.save(person);
 			PersonFile personFile = new PersonFile();
 			personFile.setData(data);
 			personFile.setFileName(multipartFile.getOriginalFilename());
 			personFile.setFileType(multipartFile.getContentType());
 			personFile.setId(person.getId());
-			filePersonRepository.save(personFile);
+			
+			Runnable saveFileRunable = new Runnable() {	
+				@Override
+				public void run() {
+				filePersonRepository.save(personFile);				
+				}
+			};
+			
+			if(person.getEmaill() != null) {
+				
+			final String emailUser =  person.getEmaill(); // set the emall adress before to send the maill
+			email.setRecipient(emailUser);				
+			executorService.submit(email);
+			
+			}
+			
+			executorService.submit(saveFileRunable);
 
 		} catch (Exception e) {
 			System.out.println(e.toString());
@@ -86,18 +113,14 @@ public class FileServiceInpl implements FileService {
 	
 	 ByteArrayOutputStream baos = new ByteArrayOutputStream();
 	 
-	// FileOutputStream fos = new FileOutputStream("multiCompressed.zip");  // final file name
 	 ZipOutputStream zipOut = new ZipOutputStream(baos);  // fin
-	 
-	 
+	  
 	 for(PersonFile personFile : peapleFile    ) {
 
 		 ZipEntry zipEntry = new ZipEntry(personFile.hashCode()+personFile.getFileName());
          zipOut.putNextEntry(zipEntry);
 		  zipOut.write(personFile.getData(), 0, personFile.getData().length);
-		 
-		
-		 
+ 
 	 }
 	 zipOut.close();
 	 
@@ -112,12 +135,9 @@ public class FileServiceInpl implements FileService {
 	public List<Person> getPersonsbyPage(int pageNumber) {
 		Pageable page = PageRequest.of(pageNumber, 10, Sort.by("id").ascending());
 		
-		//Pageable page = PageRequest.of(pageNumber, 10);
 		Page<Person> allpeaple =  pageablePersonRepo.findAll(page);
 		List<Person>  peaple = allpeaple.toList();
-		
-		//peaple.forEach(p -> System.out.println(p));
-		
+			
 		return peaple;
 		
 	}

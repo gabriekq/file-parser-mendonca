@@ -15,7 +15,7 @@ public class Person {
 	private String   lastName;
 	private int age;
 	private String street;
-	
+	private String emaill;
 	
 	
 	public int getId() {
@@ -47,6 +47,14 @@ public class Person {
 	}
 	public void setStreet(String street) {
 		this.street = street;
+	}
+	
+
+	public String getEmaill() {
+		return emaill;
+	}
+	public void setEmaill(String emaill) {
+		this.emaill = emaill;
 	}
 	@Override
 	public String toString() {

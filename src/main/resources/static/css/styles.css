@@ -42,6 +42,10 @@ font-weight: bold;
 	
 }
 
+#download{
+	margin-left: 90%;
+}
+
 
 #sumaryPages{
 	display: inline-flex;

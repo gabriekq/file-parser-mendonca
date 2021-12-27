@@ -68,14 +68,16 @@ function addPersontoTable(item,index){
 	  var colunm4 = row.insertCell(3);
 	  var colunm5 = row.insertCell(4);
 	  var colunm6 = row.insertCell(5);
-	    
+	  var colunm7 = row.insertCell(6);
+	  
 	  colunm1.innerHTML = item.id;
 	  colunm2.innerHTML = item.firstName;
 	  colunm3.innerHTML = item.lastName;
 	  colunm4.innerHTML = item.age;
 	  colunm5.innerHTML = item.street;
-	  var botao ='<button class="btn btn-secondary" type="button" value="?" onclick="requestDonwloadFile(value)">Donwload</button>'.replace('?',item.id);
-	  colunm6.innerHTML = botao;  
+	  colunm6.innerHTML =  item.emaill;
+	  var botao ='<button class="btn btn-secondary" type="button" value="?" onclick="requestDonwloadFile(value)">Download</button>'.replace('?',item.id);
+	  colunm7.innerHTML = botao;  
 }
 
 function atributeCurrentAndTotalPages( ){
