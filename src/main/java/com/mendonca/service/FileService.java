@@ -1,7 +1,9 @@
 package com.mendonca.service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+import java.util.zip.ZipOutputStream;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,5 +19,9 @@ public interface FileService {
     public Optional<PersonFile>  getFileDownload(String id);
     
     public List<Person> getPersonsbyPage(int pageNumber) ;
+    
+    public List<Person> searchPersonByRangeId(String id);
 	
+    public byte[] getFilesDownload()throws IOException;
+    
 }

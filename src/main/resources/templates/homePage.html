@@ -4,75 +4,73 @@
       
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  <link rel="stylesheet" type="text/css" href="../static/css/styles.css"   th:href="@{/css/styles.css}"/>
-<title>Insert title here</title>
+
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<link rel="stylesheet"   href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+
+ <link rel="stylesheet" type="text/css" href="../static/css/styles.css"   th:href="@{/css/styles.css}"/>
+<title>Welcome to the GM File Downloader</title>
 </head>
-<body onload="validateBtn()">
-<script type="text/javascript">
-function validateBtn(){
-	var currentPageNumber = document.getElementById('currentPage');
-	var totalPageNumber = document.getElementById('totalOfPages');
-	
-	var btnBack = document.getElementById('btnBack');
-	var btnNext = document.getElementById('btnNext');
-	
-	if(currentPageNumber.textContent == '1'){
-		btnBack.disabled = true;
-	}else{
-		btnBack.disabled = false;
-	}
-	
-	if(currentPageNumber.textContent == totalPageNumber.textContent ){
-		btnNext.disabled = true;
-	}else{
-		btnNext.disabled = false;
-	}
-}
-</script>
+<body onload="movePages('default')">
+<script type="text/javascript"   src="../static/javascript/scriptFunction.js" th:src="@{/javascript/scriptFunction.js}" ></script>
+
+
+
+
 
 <h1 class="banner"  >Welcome to the GM File Downloader</h1>
 
-<p><a href="/fileUp" >Upload the File Here</a></p>
 
-<table >
+<div id="controles">
 
-    <tr >
-      <th>id</th>
+<div id="controle1">
+<p><button id="uploadButton"  class="btn btn-success" onclick="window.location.href='/fileUp'" >Upload the File Here</button></p>
+</div>
+
+<div id=controle2 >
+<input type="text" placeholder="Search.." name="search" id="searchId"  onkeyup="search()" >
+</div>
+
+</div>
+
+<table id="tableData" class="table table-info table-striped">
+
+    <tr  >
+      <th >id</th>
       <th>First Name</th>
       <th>Last Name</th>
        <th>Age</th>
        <th>Street</th>
+        <th>Email</th>
        <th>Download File</th>
     </tr>
     
-    <tr th:each="person : ${peaple}">
-        <td  th:text ="${person.id}" ></td>
-         <td  th:text ="${person.firstName}"  ></td>
-          <td  th:text ="${person.lastName}"  ></td>
-           <td  th:text ="${person.age}"  ></td>
-            <td  th:text ="${person.street}"  ></td>
-             <td> 
-            <form action="#" th:action="@{/files/getFile}  "  method="post"  target="_blank" >
-               <button type="submit" name="id"  th:value="${person.id}" >Baixar</button>
-            </form>
-            </td>
-
-     </tr>
+  
  
 </table>
 
-<form action="#" th:action="@{/movePages}  "  method="post"   >
- <button type="submit" name="idN"  value="back"    id="btnBack" >Anterior</button>
- <button type="submit" name="idN"  value="next"    id="btnNext"  >Proximo</button>
- </form>
+   
+ <button class="btn btn-primary"   type="button" name="idN"  value="back"  onclick="movePages(value)"  id="btnBack" >Back</button>
+ <button class="btn btn-primary" type="button" name="idN"  value="next"  onclick="movePages(value)"  id="btnNext"  >Next</button>
+  
+ 
+  </br>
  
  <div id="sumaryPages"  >
  <p>Page</p>
- <p th:text="${currentPageNumber}+1"  id="currentPage" ></p>
+ <p  id="currentPage" ></p>
  <p>of</p>
- <p th:text="${numberOfPages}+1"   id="totalOfPages" ></p>
+ <p   id="totalOfPages" ></p>
   <p> Pages</p>
   </div>
+  
+  <div id="download">
+<p><button id="uploadButton"  class="btn btn-danger" onclick="window.location.href='/files/getFiles'" >Download Files</button></p>
+</div>
+  
+  
+  
  
 
 </body>

@@ -21,6 +21,32 @@ body{
 
 }
 
+#uploadButton{
+font-weight: bold;
+}
+
+#controles{
+	display: flex;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#controle1{
+   height: 50px;
+}
+
+#controle2{
+	margin-left: auto;
+	height: 38px;
+	margin-top: 15px;
+	
+}
+
+#download{
+	margin-left: 90%;
+}
+
+
 #sumaryPages{
 	display: inline-flex;
 	color: lightseagreen;
@@ -28,13 +54,16 @@ body{
 	column-gap: 5px;
 }
 
+#btnBack{
+   margin-right: 10px;
+}
 table{
 	margin-left: auto;
 	margin-right: auto;
 	width: 100%;
 }
 
-table, th, td {
+ th, td {
   border:1px solid black;
 }
    
